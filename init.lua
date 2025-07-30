@@ -1,3 +1,21 @@
+-- My custom conf --
+
+-- ~/.config/nvim/init.lua
+-- set indentation
+vim.opt.tabstop = 4 -- A TAB character counts as 4 spaces
+vim.opt.shiftwidth = 4 -- Autoindentation and >>, << commands use 4 spaces
+vim.opt.expandtab = true -- Convert tabs to spaces when indenting
+vim.opt.softtabstop = 4 -- (Ensure this is also 4, add if missing) Pressing TAB inserts 4 spaces
+
+-- You might also want to ensure these are present/enabled for good indentation behavior:
+vim.opt.autoindent = true -- Copy indent from current line when starting a new line
+vim.opt.smartindent = true -- Smart autoindenting for C-style files (optional, language servers often handle this)
+vim.opt.softtabstop = 4 -- (Ensure this is also 4, add if missing) Pressing TAB inserts 4 spaces
+
+-- You might also want to ensure these are present/enabled for good indentation behavior:
+vim.opt.autoindent = true -- Copy indent from current line when starting a new line
+vim.opt.smartindent = true -- Smart autoindenting for C-style files (optional, language servers often handle this)
+
 --[[
 
 =====================================================================
@@ -91,7 +109,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -172,6 +190,12 @@ vim.o.confirm = true
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+-- CUSTOM ESCAPE KEY
+vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
+
+-- RELATIVE LINE NUMBERS
+vim.wo.relativenumber = true
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -462,6 +486,26 @@ require('lazy').setup({
     end,
   },
 
+  -- Custom Plugins
+  {
+    'christoomey/vim-tmux-navigator',
+    cmd = {
+      'TmuxNavigateLeft',
+      'TmuxNavigateDown',
+      'TmuxNavigateUp',
+      'TmuxNavigateRight',
+      'TmuxNavigatePrevious',
+      'TmuxNavigatorProcessList',
+    },
+    keys = {
+      { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
+      { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
+      { '<c-k>', '<cmd><C-U>TmuxNavigateUp<cr>' },
+      { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
+      { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
+    },
+  },
+
   -- LSP Plugins
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -681,7 +725,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
+        ts_ls = {},
         --
 
         lua_ls = {
@@ -984,7 +1028,7 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
