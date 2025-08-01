@@ -57,6 +57,15 @@ return {
     end,
     dependencies = { { 'nvim-tree/nvim-web-devicons' } },
   },
+  {
+    'savq/melange-nvim',
+    priority = 1000, -- Make sure to load this before all the other start plugins.
+    lay = false,
+    config = function()
+      vim.cmd.colorscheme 'melange'
+      vim.api.nvim_set_hl(0, 'Comment', { italic = false })
+    end,
+  },
   { 'nvim-tree/nvim-web-devicons', opts = {} },
   {
     'nvim-neo-tree/neo-tree.nvim',
