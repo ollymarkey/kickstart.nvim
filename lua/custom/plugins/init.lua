@@ -60,7 +60,7 @@ return {
   {
     'savq/melange-nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
-    lay = false,
+    lazy = false,
     config = function()
       vim.cmd.colorscheme 'melange'
       vim.api.nvim_set_hl(0, 'Comment', { italic = false })
@@ -124,5 +124,20 @@ return {
       },
     },
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
+  },
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      'MunifTanjim/nui.nvim',
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      'rcarriga/nvim-notify',
+    },
   },
 }
